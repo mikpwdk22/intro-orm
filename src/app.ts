@@ -1,5 +1,6 @@
 import express from 'express';
-import usersRouter from './controllers/users.router'
+import usersRouter from './routers/users.router';
+import "dotenv/config";
 
 const port: number = 8001;
 
