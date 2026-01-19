@@ -15,5 +15,41 @@ export const UsersController = {
             res.status(500).json(error);
         }
     },
-    create(req: Request, res: Response) {},
+    async create(req: Request, res: Response) {
+        try {
+            const { username, email, fullName } = req.body;
+
+            const findUser = await prisma.user.findFirst({
+                where: {
+                    email: email,
+                },
+            });
+
+            await prisma.user.create({
+            data: {
+                username,
+                email,
+                fullName
+            }
+            });
+
+            res.status(201).json({
+                success: true,
+                message: 'Create User Successfully',
+                data: {
+                    username,
+                    email,
+                    fullName
+                }
+            });
+        } catch (error: any) {
+            console.log(error);
+            res.status(500).json({
+                success: false,
+                message: error?.message,
+                data: null
+            });
+            
+        }
+    },
 }
