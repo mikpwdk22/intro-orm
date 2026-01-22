@@ -47,7 +47,7 @@ export const UsersController = {
             res.status(500).json({
                 success: false,
                 message: error?.message,
-                data: null
+                data: null  
             });
             
         }
