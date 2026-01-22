@@ -1,5 +1,6 @@
 import  prisma  from "../config/prisma-client.config";
 import { User } from "../generated/prisma/client";
+import AppError from "../helpers/app-error.helper";
 
 export const usersService = {
   async get() {
@@ -16,7 +17,7 @@ export const usersService = {
     });
 
     if (findUser) {
-      throw new Error("Email already registered");
+        throw AppError('Email already registered', 500);
     }
 
     return prisma.user.create({
